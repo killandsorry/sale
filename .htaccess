@@ -1,0 +1,7 @@
+RewriteEngine On
+#([^/]*)([0-9]*)RewriteRule
+#(\/?)$ có hoạc không dấu /
+
+
+#tim viec lam trang chủ
+RewriteRule ^(\/?)$ home/index.php

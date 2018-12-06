@@ -1,0 +1,270 @@
+23/11/2018 05:11:22 AM /
+File : 
+Query time : 0.0323719978
+IP:127.0.0.1SELECT * FROM blog LIMIT 1
+23/11/2018 05:11:48 AM /logtest/login.php
+File : 
+Query time : 0.0531859398
+IP:127.0.0.1SELECT adm_id
+										 FROM admin_user
+										 WHERE adm_loginname = 'admin' AND adm_password = 'c4ca4238a0b923820dcc509a6f75849b' AND adm_active = 1 AND adm_delete = 0
+23/11/2018 05:14:31 AM /logtest/index.php
+File : 
+Query time : 0.0165219307
+IP:127.0.0.1SELECT *
+								 FROM modules
+								 ORDER BY mod_order ASC
+23/11/2018 05:14:36 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0260169506
+IP:127.0.0.1SELECT cat_id FROM category
+23/11/2018 05:14:37 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0163168907
+IP:127.0.0.1SELECT * from configuration
+23/11/2018 05:14:37 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0231010914
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:14:44 AM /logtest/modules/category/add.php?cat_type=new
+File : 
+Query time : 0.0316629410
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:14:46 AM /logtest/modules/category/add.php?cat_type=vl
+File : 
+Query time : 0.0011870861
+IP:127.0.0.1SELECT cat_id,cat_id, cat_id,cat_name,cat_order FROM category WHERE  cat_type = 'vl' ORDER BY cat_id ASC,cat_order ASC, cat_name ASC
+23/11/2018 05:14:46 AM /logtest/modules/category/add.php?cat_type=vl
+File : 
+Query time : 0.0307049751
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:14:48 AM /logtest/modules/category/add.php?cat_type=new
+File : 
+Query time : 0.0180721283
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:14:50 AM /logtest/modules/category/add.php?cat_type=vl
+File : 
+Query time : 0.0224680901
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:15:40 AM /logtest/modules/category_link/add.php
+File : 
+Query time : 0.0331809521
+IP:127.0.0.1SHOW FIELDS FROM category_link
+23/11/2018 05:21:43 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0394160748
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:23:39 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0413200855
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:26:28 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0165860653
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:26:29 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0225799084
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:30:35 AM /logtest/modules/category/listing.php
+File : 
+Query time : 0.0011930466
+IP:127.0.0.1SELECT * FROM category
+23/11/2018 05:35:25 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0190789700
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:36:50 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0406808853
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:36:53 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0320460796
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:37:51 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0276858807
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:38:18 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0335209370
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:38:19 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0287520885
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:39:04 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0245790482
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:39:05 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0256910324
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:39:05 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0111629963
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:39:05 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0223371983
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:39:06 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0012159348
+IP:127.0.0.1SELECT cat_id FROM category
+23/11/2018 05:39:06 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0344851017
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:39:06 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0186469555
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:40:01 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0205500126
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:41:00 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0011661053
+IP:127.0.0.1SELECT cat_id,cat_parent_id, cat_id,cat_name,cat_order FROM category WHERE  cat_type = 'product' ORDER BY cat_parent_id ASC,cat_order ASC, cat_name ASC
+23/11/2018 05:41:00 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0661439896
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:41:43 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0014629364
+IP:127.0.0.1SELECT cat_id,cat_parent_id, cat_id,cat_name,cat_order FROM category WHERE  cat_type = 'product' ORDER BY cat_parent_id ASC,cat_order ASC, cat_name ASC
+23/11/2018 05:41:43 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0292649269
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:41:45 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0019040108
+IP:127.0.0.1SELECT cat_id,cat_parent_id, cat_id,cat_name,cat_order FROM category WHERE  cat_type = 'product' ORDER BY cat_parent_id ASC,cat_order ASC, cat_name ASC
+23/11/2018 05:41:45 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0219419003
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:42:31 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.2039899826
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:42:45 AM /logtest/modules/category/add.php
+File : 
+Query time : 0.0311241150
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:42:45 AM /logtest/modules/category/add.php?save=1&iParent=3&cat_type=product&cat_order=0
+File : 
+Query time : 0.0012240410
+IP:127.0.0.1SELECT * from configuration
+23/11/2018 05:42:45 AM /logtest/modules/category/add.php?save=1&iParent=3&cat_type=product&cat_order=0
+File : 
+Query time : 0.0178041458
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:51:35 AM /logtest/modules/category/add.php?save=1&iParent=3&cat_type=product&cat_order=0
+File : 
+Query time : 0.0400390625
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:51:36 AM /logtest/modules/category/add.php?save=1&iParent=3&cat_type=product&cat_order=0
+File : 
+Query time : 0.0224218369
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:51:37 AM /logtest/modules/category/add.php?save=1&iParent=3&cat_type=product&cat_order=0
+File : 
+Query time : 0.0285501480
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:51:50 AM /logtest/modules/category/add.php?save=1&iParent=3&cat_type=product&cat_order=0
+File : 
+Query time : 0.0271060467
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:51:50 AM /logtest/modules/category/add.php?save=1&iParent=&cat_type=product&cat_order=0
+File : 
+Query time : 0.0193169117
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:52:41 AM /logtest/modules/category/add.php?save=1&iParent=&cat_type=product&cat_order=0
+File : 
+Query time : 0.0295989513
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:52:42 AM /logtest/modules/category/add.php?save=1&iParent=&cat_type=product&cat_order=0
+File : 
+Query time : 0.0329680443
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:52:49 AM /logtest/modules/category/add.php?save=1&iParent=&cat_type=product&cat_order=0
+File : 
+Query time : 0.0273540020
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:53:21 AM /logtest/modules/category/add.php?save=1&iParent=&cat_type=product&cat_order=0
+File : 
+Query time : 0.0266571045
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:53:21 AM /logtest/modules/category/add.php?save=1&cat_type=product&cat_order=0
+File : 
+Query time : 0.0291960239
+IP:127.0.0.1SHOW FIELDS FROM category
+23/11/2018 05:56:26 AM /logtest/modules/category/listing.php
+File : 
+Query time : 0.0014541149
+IP:127.0.0.1SELECT * from configuration
+23/11/2018 07:53:43 AM /logtest/
+File : 
+Query time : 0.0013008118
+IP:127.0.0.1SELECT *
+								 FROM modules
+								 ORDER BY mod_order ASC
+23/11/2018 08:09:42 AM /logtest/modules/configuration/configuration.php
+File : 
+Query time : 0.0276391506
+IP:127.0.0.1SHOW FIELDS FROM configuration
+23/11/2018 08:14:54 AM /logtest/modules/configuration/configuration.php
+File : 
+Query time : 0.0222687721
+IP:127.0.0.1SHOW FIELDS FROM configuration
+23/11/2018 08:15:24 AM /logtest/modules/keyword/add.php
+File : 
+Query time : 0.1342029572
+IP:127.0.0.1SHOW FIELDS FROM keyword_search
+23/11/2018 08:16:38 AM /logtest/modules/blog/add.php
+File : 
+Query time : 0.0186910629
+IP:127.0.0.1SHOW FIELDS FROM blog
+23/11/2018 08:16:38 AM /logtest/modules/blog/add.php
+File : 
+Query time : 0.0124897957
+IP:127.0.0.1SHOW FIELDS FROM blog_content
+23/11/2018 08:58:42 AM /logtest/
+File : 
+Query time : 0.0011098385
+IP:127.0.0.1SELECT *
+								 FROM modules
+								 ORDER BY mod_order ASC
+23/11/2018 10:10:25 AM /logtest/
+File : 
+Query time : 0.0027580261
+IP:127.0.0.1SELECT *
+								 FROM modules
+								 ORDER BY mod_order ASC
+23/11/2018 10:11:15 AM /logtest/modules/products/add.php
+File : 
+Query time : 0.0010459423
+IP:127.0.0.1SELECT *
+										 FROM admin_user, admin_user_right, modules
+										 WHERE adm_id = adu_admin_id AND mod_id = adu_admin_module_id AND adm_isadmin = 0 AND
+										 adm_loginname='admin' AND adm_password='c4ca4238a0b923820dcc509a6f75849b' AND adm_active=1 AND adm_delete = 0
+										 AND mod_id = 3
+23/11/2018 10:12:12 AM /logtest/modules/products/add.php
+File : 
+Query time : 0.0161068439
+IP:127.0.0.1SHOW FIELDS FROM product
+23/11/2018 10:53:37 AM /logtest/modules/products/add.php
+File : 
+Query time : 0.0370278358
+IP:127.0.0.1SHOW FIELDS FROM product
+23/11/2018 10:54:42 AM /logtest/modules/products/add.php
+File : 
+Query time : 0.0518751144
+IP:127.0.0.1SHOW FIELDS FROM products

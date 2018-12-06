@@ -1,0 +1,13 @@
+RewriteEngine On
+#RewriteCond %{HTTPS} !=on
+#RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
+#([^/]*)([0-9]*)RewriteRule
+#(\/?)$ có hoạc không dấu /
+
+
+#category list
+RewriteRule ^([^/]*)-cat([0-9]*),([0-9]*)$ list.php?cat=$2&page=$3
+RewriteRule ^([^/]*)-cat([0-9]*)$ list.php?cat=$2
+
+#chi tiết việc làm
+RewriteRule ^([^/]*)-blog([0-9]*)$ detail.php?bid=$2

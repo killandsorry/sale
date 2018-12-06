@@ -1,0 +1,39 @@
+<?
+
+//file inc_security trong module nào cũng phải có.
+//includes file kiểm tra bảo mật và include các file cần thiết như class,function.
+require_once("../../resource/security/security.php");
+//$module_id	là id của module ở trong bảng module
+$module_id	= 3;
+//$module_name		là tiêu đề của module
+$module_name= "Tin ";
+//$fs_errorMsg		= "";
+$img_path			= "../../../pictures/product/";
+$limit_size			= 750;
+$extension_list	= "jpg,gif,png";
+//Check user login... (gọi ra hàm kiểm tra bảo mật đăng nhập rồi hay chưa)
+checkLogged();
+//Check access module...(kiểm tra quyền xem có được phép truy cập module này hay không)
+//if(checkAccessModule($module_id) != 1) redirect($fs_denypath);
+
+//Declare prameter when insert data
+$fs_table		= "products_sale"; //tên bảng
+$id_field		= "pro_id";//khóa chính trong bảng
+$name_field		= "pro_name";//trường đại diện
+$break_page		= "{---break---}";
+//$array_config		= array("image"=>1,"upper"=>1,"order"=>1,"description"=>1);
+//Mảng array categories cha
+$arrayCateoty		= array();
+$db_select_cat		=	new db_query("SELECT *
+                                   FROM categories_multi
+											  WHERE cat_active=1 AND (cat_type='sale') ORDER BY cat_order ASC");
+$arr_cat					=	array(0 => "Chọn danh mục");
+while($cat_vl			=	mysql_fetch_assoc($db_select_cat->result)){
+	if($cat_vl['cat_parent_id'] == 0){
+		$arrayCateoty[$cat_vl['cat_id']]['name'] = $cat_vl['cat_name'];
+	}else{
+		$arrayCateoty[$cat_vl['cat_parent_id']]['list'][]	= $cat_vl;
+	}
+	$arr_cat[$cat_vl['cat_id']] = $cat_vl;
+}
+unset($db_select_cat);

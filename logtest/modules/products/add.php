@@ -1,0 +1,255 @@
+<?
+include("inc_security.php");
+checkAddEdit("add");
+//Khai báo biến khi thêm mới
+$fs_redirect							=	"add.php";
+$fs_title			= "Tin đăng"; //tên tiêu đề bân trái
+$fs_action			= getURL();//reload lại
+$fs_errorMsg		= "";//lỗi trả về nếu thêm mới không đc
+$pro_date			= time();//lấy ngày hiện hành
+$pro_sale			= 1;
+$pro_active			= 1;
+$new_active			=	0;
+$myform	=	new generate_form();//tạo form mới
+$pro_dat_id			= 0;
+
+
+$myform->removeHTML(0);
+//thêm các trường vào form
+//$myform->add("pro_rewrite","pro_rewrite",0,1,"",1,translate_text("Vui lòng nhập Url Rewrite"),1,translate_text("Trùng Url Rewrite sản phẩm"));
+$myform->add("pro_name", "pro_name", 0, 0, "", 1, "Vui lòng nhập tiêu đề tin", 1, "Trùng tiêu đề tin"); //tiêu đề tin
+$myform->add("pro_cat_id", "pro_cat_id", 1, 0, 0, 1, "Vui lòng chọn danh mục đăng tin", 0, ""); //danh mục cấp cha
+//$myform->add("pro_group_type", "pro_group_type", 1, 0, 0, 1, "Vui lòng chọn nhóm thuốc", 0, "");
+$myform->add("pro_active", "pro_active", 1, 1, 0, 0, "", 0, ""); //Kich hoat
+$myform->add("pro_date", "pro_date", 1, 1, 0, 0, "", 0, ""); //Ngay dang
+$myform->add("pro_price", "pro_price", 3, 0, 0, 0, "", 0, "");
+$myform->add("pro_sale", "pro_sale", 1, 1, 0, 0, "", 0, "");
+$myform->add("pro_dat_id", "pro_dat_id", 1, 1, 0, 0, "", 0, "");
+//$myform->add("pro_price_market", "pro_price_market", 3, 0, 0, 0, "", 0, "");
+//$myform->add("pro_sdk", "pro_sdk", 0, 0, "", 0, "", 0, "");
+//$myform->add("pro_code", "pro_code", 0, 0, "", 0, "", 0, "");
+//$myform->add("pro_type", "pro_type", 1, 0, 0, 0, "", 0, "");
+//$myform->add("pro_cou_id", "pro_cou_id", 1, 0, 0, 0, "", 0, "");
+//$myform->add("pro_handung", "pro_handung", 0, 0, "", 0, "", 0, "");
+$myform->add("pro_formula", "pro_formula", 0, 0, "", 0, "", 0, "");
+$myform->add("pro_deportment", "pro_deportment", 0, 0, "", 0, "", 0, "");
+$myform->add("pro_assign", "pro_assign", 0, 0, "", 0, "", 0, "");
+//$myform->add("pro_using", "pro_using", 0, 0, "", 0, "", 0, "");
+$myform->add("pro_dosage", "pro_dosage", 0, 0, "", 0, "", 0, "");
+$myform->add("pro_contraindications", "pro_contraindications", 0, 0, "", 0, "", 0, "");
+$myform->add("pro_note", "pro_note", 0, 0, "", 0, "", 0, "");
+$myform->add("pro_preservation", "pro_preservation", 0, 0, "", 0, "", 0, "");
+$myform->add("pro_production", "pro_production", 0, 0, "", 0, "", 0, "");
+$myform->add("pro_description", "pro_description", 0, 1, "", 0, "", 0, "");
+$myform->add("pro_search", "pro_search", 0, 1, "", 0, "", 0, "");
+$myform->add("pro_admin_id", "admin_id", 1, 1, "", 0, "", 0, "");
+//Add table insert data
+$myform->addTable($fs_table);
+$errorMsg	= "";
+
+$content		=	getValue("pro_content", "str", "POST", "");
+$pro_description		=	getValue("pro_description", "str", "POST", "");
+$pro_name				=	getValue("pro_name", "str", "POST", "");
+$pro_assign				=	getValue("pro_assign", "str", "POST", "");
+//Get action variable for add new data
+$action				= getValue("action", "str", "POST", ""); //kiểm tra xem form có đc submit đi không
+//Check $action for insert new data
+if($action == "execute"){
+
+	//upload ảnh lên thư mục
+	$upload_pic = new upload("pro_picture", $img_path, $extension_list, $limit_size);
+	$picture = $upload_pic->file_name;
+	if($picture == ""){
+
+		if($pic_download != ""){
+			$pic_temp = $upload_pic->generate_name($pic_download);
+			$check_download = downloadImage($pic_download, $img_path . $pic_temp);
+			if($check_download) $picture = $pic_temp;
+		}
+	}
+	if ($picture != ""){
+		resize_image($img_path, $picture , 90, 90, 75);
+		$myform->add("pro_picture", "picture", 0, 1, "", 0, "", 0, "");
+	}
+
+	/**
+	 * Thêm 3 ảnh detail nếu có
+	 */
+
+ 	for($i = 1; $i < 4; $i++){
+ 		if(isset($_FILES['pro_pic_' . $i]['name']) && $_FILES['pro_pic_' . $i]['name'] != ''){
+			$upload_img	= new upload('pro_pic_' . $i, $img_path, $extension_list, $limit_size);
+			if($upload_img->show_warning_error() == ''){
+				$name		= 'file_name_' . $i;
+				$$name					= $upload_img->file_name;
+				$myform->add('pro_pic_' . $i, 'file_name_' . $i, 0, 1, '', 1, 'Bạn chưa nhập ảnh chi tiết cho sản phẩm', 0, '');
+			}else{
+				$fs_errorMsg	.= $upload_img->show_warning_error() . '<br>';
+			}
+			unset($upload_img);
+ 		}
+ 	}
+
+ 	/**
+ 	 * Thêm 2 ảnh hướng dẫn sử dụng nếu có
+ 	 */
+	for($j = 1; $j < 3; $j++){
+ 		if(isset($_FILES['pro_pic_intro_' . $j]['name']) && $_FILES['pro_pic_intro_' . $j]['name'] != ''){
+			$upload_img	= new upload('pro_pic_intro_' . $j, $img_path, $extension_list, $limit_size);
+			if($upload_img->show_warning_error() == ''){
+				$name		= 'file_name_' . $j;
+				$$name					= $upload_img->file_name;
+				$myform->add('pro_pic_intro_' . $j, 'file_name_' . $j, 0, 1, '', 0, '', 0, '');
+			}else{
+				$fs_errorMsg	.= $upload_img->show_warning_error() . '<br>';
+			}
+			unset($upload_img);
+ 		}
+ 	}
+
+	$html		=	new html_cleanup($pro_description);
+	$html->clean();
+	$pro_description	=	$html->output_html;
+	$pro_description	=	str_replace("http:%5C%22", "", $pro_description); //$cla_des là n?i dung c?a tin dang khi dã lo?i b? các ký t? tru?c hình ?nh
+	$pro_description	=	str_replace("%5C%22", "", $pro_description);
+	//$myform->add("pro_content", "content", 0, 1, "", 0, "", 0, ""); //nội dung bài viết
+
+	//check kiểm tra có lỗi hay không
+	$fs_errorMsg .= $upload_pic->show_warning_error();
+	$fs_errorMsg .= $myform->checkdata();
+	if($fs_errorMsg == ""){
+		//if(checkRewriteUrl($pro_rewrite) > 0) $fs_errorMsg .= "Url Rewrite đã được nhập";
+	}
+	//thực hiện thêm mới nếu không có lỗi
+	if($fs_errorMsg == ""){
+
+		$data	= $pro_description;
+		$myDetectTag = new detectTag();
+		$arrayTag = $myDetectTag->detectTagFromText($data,1);
+		$pro_search = mb_strtolower($pro_name, 'UTF-8') . ' ' . mb_strtolower($pro_assign, 'UTF-8') . ' ' . $myDetectTag->text_search_index;
+		foreach($arrayTag as $key => $val){
+			$myKeyword = new replace_keyword($pro_description, $val["keyword"],$val["link"]);
+			$pro_description = $myKeyword->getHtml();
+			unset($myKeyword);
+		}
+
+		//không remove ký tự html
+		$myform->removeHTML(0);
+		//echo $myform->generate_insert_SQL();
+		$db_ex 	= new db_execute_return();
+		$last_id = $db_ex->db_execute($myform->generate_insert_SQL());
+		$myform->evaluate();
+		$pro_cat_id		=	getValue("pro_cat_id", "int", "POST");
+		if($last_id > 0)	createRewriteUrl($pro_rewrite, array("iPro" => $last_id, "module" => 'thuoc',"iCat" => $pro_cat_id), $last_id);
+		//die($myform->generate_insert_SQL());
+		//kiểm tra nếu thêm mới thành công thì thông báo
+		
+		redirect($fs_redirect);
+		exit();
+	}
+}
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<?=$load_header?>
+<?
+//add form for javacheck
+$myform->addFormname("add");//(tên form name)
+$myform->checkjavascript();
+
+//chuyển các trường thành biến để lấy giá trị thay cho dùng kiểu getValue
+$myform->evaluate();
+
+$fs_errorMsg .= $myform->strErrorField;
+$fs_errorMsg .= $myform->strErrorField;
+?>
+</head>
+<body topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
+<? /*------------------------------------------------------------------------------------------------*/ ?>
+<?=template_top($fs_title)?>
+<? /*------------------------------------------------------------------------------------------------*/ ?>
+	<p align="center" style="padding-left:10px;">
+	<?
+	$form = new form();
+	$form->create_form("add", $_SERVER["REQUEST_URI"], "POST", "multipart/form-data",'onsubmit="validateForm(); return false;"');
+	$form->create_table(3,3,'width="100%"');
+	?>
+		<?=$form->text_note('Những ô có dấu sao (<font class="form_asterisk">*</font>) là bắt buộc phải nhập.')?>
+		<?=$form->errorMsg($fs_errorMsg)?>
+		<tr>
+			<td class="form_name"><font class="form_asterisk">* </font>Danh mục thuốc</td>
+			<td class="form_text">
+				<select class="pro_cat_id" id="pro_cat_id" name="pro_cat_id">
+					<option>-- Chọn danh mục thuốc --</option>
+					<?
+					foreach($arrayCateoty as $k => $value){
+						echo '<optgroup label="'. $value['name'] .'">';
+						foreach($value['list'] as $catid => $catchild){
+							echo '<option value="'. $catchild['cat_id'] .'">'. $catchild['cat_name'] .'</option>';
+						}
+						echo '</optgroup>';
+					}
+					?>
+				</select>
+			</td>
+		</tr>
+		<?
+		$proname		= $pro_name;
+		$proprice	= $pro_price;
+		if($pro_name	== ''){
+			if(isset($arrayData['dat_name'])) $proname	= $arrayData['dat_name'];
+		}
+		if($proprice <= 0){
+			if(isset($arrayData['dat_price_out'])) $proprice	= $arrayData['dat_price_out'];
+		}
+		?>
+		<?=$form->text("Tên sản phẩm", "pro_name", "pro_name", $proname, "Tiêu đề của tin đăng", 1, 400, "", 255, "", 'onblur="$(\'#pro_rewrite\').val($(this).val())"', "")?>
+		<?//=$form->select("Nhóm sản phẩm", "pro_group_type", "pro_group_type", get_group_type(), $pro_group_type, "", 1, 200, "" )?>
+		<?//=$form->text("Url Rewrite", "pro_rewrite", "pro_rewrite", $pro_rewrite, "", 1, 400, "", 255, "", 'onblur="ajaxCheckRewrite(\'#pro_rewrite_check\',{title:$(this).val(),record_id:0})" onkeypress="ajaxCheckRewrite(\'#pro_rewrite_check\',{title:$(this).val(),record_id:0})"', ' <span id="pro_rewrite_check"></span>')?>
+		<?=$form->text("Giá bán", "pro_price", "pro_price", $proprice, "", 1, 100, "", 255, "", "", "")?>
+
+		<?//=$form->text("Giá thị trường", "pro_price_market", "pro_price_market", $pro_price_market, "", 1, 100, "", 255, "", "", "")?>
+		<?//=$form->text("Số đăng ký", "pro_sdk", "pro_sdk", $pro_sdk, "", 1, 100, "", 255, "", "", "")?>
+		<?//=$form->text("Mã vạch", "pro_code", "pro_code", $pro_code, "", 1, 100, "", 255, "", "", "")?>
+		<?//=$form->select("Dạng bào chế", "pro_type", "pro_type", get_type_product(), $pro_type, "", 1, 200, "" )?>
+		<?//=$form->select("Nước sản xuất", "pro_cou_id", "pro_cou_id", get_coutries(), $pro_cou_id, "", 1, 200, "" )?>
+		<?=$form->getFile("Ảnh sản phẩm", "pro_picture", "pro_picture", "",  1, 30, "", "") ?>
+		<?=$form->getFile("Ảnh miêu tả 1", "pro_pic_1", "pro_pic_1", "",  0, 30, "", "") ?>
+		<?=$form->getFile("Ảnh miêu tả 2", "pro_pic_2", "pro_pic_2", "",  0, 30, "", "") ?>
+		<?=$form->getFile("Ảnh miêu tả 3", "pro_pic_3", "pro_pic_3", "",  0, 30, "", "") ?>
+		<?=$form->getFile("Ảnh hướng dẫn sử dụng 1", "pro_pic_intro_1", "pro_pic_intro_1", "",  0, 30, "", "") ?>
+		<?=$form->getFile("Ảnh hướng dẫn sử dụng 2", "pro_pic_intro_2", "pro_pic_intro_2", "",  0, 30, "", "") ?>
+		<?//=$form->text("Tải ảnh từ URL", "pic_download", "pic_download", $pic_download, "", 0, 450, "", 255, "", "", "")?>
+		<?//=$form->text("Hạn dùng", "pro_handung", "pro_handung", $pro_handung, "", 1, 200, "", 255, "", "", "")?>
+		<?=$form->textarea("Công dụng", "pro_assign", "pro_assign", $pro_assign, "", 1, 400, 100, '', "",'','')?>
+		<?//=$form->textarea("<b>Cách dùng</b>", "pro_using", "pro_using", $pro_using, "", 1, 400, 100, '', "",'','')?>
+		<? /*?>
+		<?=$form->textarea("<b>Công thức</b>", "pro_formula", "pro_formula", $pro_formula, "", 1, 400, 100, '', "",'','')?>
+		<?=$form->textarea("<b>Tác dụng</b>", "pro_deportment", "pro_deportment", $pro_deportment, "", 1, 400, 100, '', "",'','')?>
+		<?=$form->textarea("<b>Liều dùng</b>", "pro_dosage", "pro_dosage", $pro_dosage, "", 1, 400, 100, '', "",'','')?>
+		<?=$form->textarea("<b>Chống chỉ định</b>", "pro_contraindications", "pro_contraindications", $pro_contraindications, "", 1, 400, 100, '', "",'','')?>
+		<?=$form->textarea("<b>Lưu ý</b>", "pro_note", "pro_note", $pro_note, "", 1, 400, 100, '', "",'','')?>
+		<?=$form->textarea("<b>Bảo quản</b>", "pro_preservation", "pro_preservation", $pro_preservation, "", 1, 400, 100, '', "",'','')?>
+		<?=$form->textarea("<b>Sản xuất</b>", "pro_production", "pro_production", $pro_production, "", 1, 400, 100, '', "",'','')?>
+		<? //*/?>
+		<?=$form->button("submit" . $form->ec . "reset", "submit" . $form->ec . "reset", "submit" . $form->ec . "reset", "Cập nhật" . $form->ec . "Làm lại", "Cập nhật" . $form->ec . "Làm lại", 'style="background:url(' . $fs_imagepath . 'button_1.gif) no-repeat"' . $form->ec . 'style="background:url(' . $fs_imagepath . 'button_2.gif)"', "");?>
+		<?=$form->hidden("action", "action", "execute", "");?>
+		<tr>
+			<td colspan="2">
+				<?=$form->wysiwyg("Thông tin","pro_description", $pro_description,"../../resource/wysiwyg_editor/","100%","600");?>
+			</td>
+		</tr>
+
+
+	<?
+	$form->close_table();
+	$form->close_form();
+	unset($form);
+	?>
+	</p>
+<? /*------------------------------------------------------------------------------------------------*/ ?><?=template_bottom() ?>
+<? /*------------------------------------------------------------------------------------------------*/ ?>
+</body>
+</html>
